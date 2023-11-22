@@ -1,5 +1,27 @@
 from tkinter import *
 from tkinter import messagebox
+import subprocess
+
+def show_absensi_siswa():
+    root.destroy()
+    execute_other_script()
+
+def signin():
+    username=user.get()
+    password=code.get()
+
+    if username == "admin" and password == "admin":
+        # If the username and password are correct, open the new window with the file content
+         show_absensi_siswa()
+    else:
+        messagebox.showerror("Error", "Invalid username or password")
+
+def execute_other_script():
+    try:
+        # Replace 'path_to_your_script.py' with the actual path to your Python script
+        subprocess.run(['python', 'Absensi_Backend.py'])
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to execute the script: {e}")
 
 root=Tk()
 root.title('login')
@@ -7,33 +29,7 @@ root.geometry('1500x740')
 # root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 
-
-def signin():
-    username=user.get()
-    password=code.get()
-
-    if username== 'admin' and password=='admin':
-       screen=Toplevel(root)
-       screen.title("App")
-
-       screen.config(bg="white")
-
-       Label(screen,text='Hello Everyone!',bg='#fff',font=('calibri(Body)',50,'bold')).pack(expand=True)
-
-       screen.mainloop()
-
-    elif username!='admin' and password!='admin':
-      messagebox.showerror("Invalid"," password")
-
-    elif password!="admin":
-     messagebox.showerror("Invalid","invalid username and password")
-
-    elif username!='admin':
-     messagebox.showerror("Invalid","invalid password")
-
-
-
-img = PhotoImage(file='login.png')
+img = PhotoImage(file='./UI LOGIN/login.png')
 Label(root,image=img,bg='white').place(x=240,y=160)
 
 frame=Frame(root,width=350,heigh=350,bg="white")
@@ -52,7 +48,7 @@ def on_leave(e):
 
 user = Entry(frame,width=25,fg='black',border=0,bg="white",font=('microsoft YaHei UI Light',11))
 user.place(x=30,y=80)
-user.insert(0,'unsername')
+user.insert(0,'username')
 user.bind('<FocusIn>',on_enter)
 user.bind('<FocusOut>',on_leave)
 
@@ -86,3 +82,4 @@ sign_up.place(x=215,y=270)
 
 
 root.mainloop()
+
